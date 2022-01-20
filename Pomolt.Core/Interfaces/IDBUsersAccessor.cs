@@ -1,13 +1,8 @@
 ﻿using Promolt.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Promolt.Core.Interfaces
+namespace Promolt.Core.DB_Accessors
 {
-    public interface IUserServices
+    public interface IDBUsersAccessor
     {
         Task CreateUser(UserModel user);
         Task DeleteUser(string id);
