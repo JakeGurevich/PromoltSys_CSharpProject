@@ -5,7 +5,7 @@ using Promolt.Core.Models;
 namespace Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         IUserServices _userServices;

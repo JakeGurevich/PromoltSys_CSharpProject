@@ -2,6 +2,7 @@ using MongoDB.Driver;
 using Promolt.Core;
 using Promolt.Core.DB_Accessors;
 using Promolt.Core.Interfaces;
+using Promolt.Core.Services;
 using Promolt.Core.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,9 @@ builder.Services.AddSingleton<IMongoClient>(serviseProvider =>
     return new MongoClient(settings.ConnectionString);
 });
 builder.Services.AddSingleton<IDBUsersAccessor, MongoDBUsersAccessor>();
+builder.Services.AddSingleton<IDBCampaignsAccessor, MongoDBCampaignsAccessor>();
 builder.Services.AddTransient<IUserServices, UserServices>();
+builder.Services.AddTransient<ICampaignServices, CampaignServices>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
