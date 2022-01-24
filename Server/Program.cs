@@ -17,8 +17,10 @@ builder.Services.AddSingleton<IMongoClient>(serviseProvider =>
 });
 builder.Services.AddSingleton<IDBUsersAccessor, MongoDBUsersAccessor>();
 builder.Services.AddSingleton<IDBCampaignsAccessor, MongoDBCampaignsAccessor>();
+builder.Services.AddSingleton<IDBDonationAccessor, MongoDBDonationAccessor>();
 builder.Services.AddTransient<IUserServices, UserServices>();
 builder.Services.AddTransient<ICampaignServices, CampaignServices>();
+builder.Services.AddTransient<IDonationServices, DonationServices>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
