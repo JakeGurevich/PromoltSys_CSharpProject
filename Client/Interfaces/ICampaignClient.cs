@@ -20,7 +20,7 @@ namespace Client.Interfaces
         Task<CampaignModel> GetCampaign(string id);
         [Get("/api/campaigns")]
         Task<List<CampaignModel>> GetCampaigns();
-        [Put("/api/users/{id}")]
+        [Put("/api/campaigns/{id}")]
         Task UpdateCampaign(string id,[Body] CampaignModel updatedCampaign);
     }
 }
