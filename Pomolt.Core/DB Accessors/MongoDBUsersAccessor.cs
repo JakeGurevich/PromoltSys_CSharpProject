@@ -29,6 +29,11 @@ namespace Promolt.Core.DB_Accessors
             var user = await usersCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
             return user;
         }
+        public async Task<UserModel> GetUserByEmail(LoginModel login)
+        {
+            var user = await usersCollection.Find(x => x.Email == login.Email).FirstOrDefaultAsync();
+            return user;
+        }
 
         public async Task<List<UserModel>> GetUsers()
         {

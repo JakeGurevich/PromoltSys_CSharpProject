@@ -52,8 +52,10 @@ namespace Server.Controllers
         }
         // PUT api/<DonationsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(string id, [FromBody] DonationModel newDonation)
         {
+            await _donationServices.UpdateDonation(id, newDonation);
+            return Ok();
         }
 
         // DELETE api/<DonationsController>/5

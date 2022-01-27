@@ -18,6 +18,8 @@ namespace Client.Interfaces
         Task<DonationModel> GetDonation(string id);
         [Get("/api/donations")]
         Task<List<DonationModel>> GetDonations();
-       
+        [Put("/api/donations")]
+        Task UpdateDonation(string id, [Body] DonationModel updatedDonation);
+
     }
 }

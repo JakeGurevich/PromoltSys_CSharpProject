@@ -55,7 +55,7 @@ namespace Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, UserModel updatedUser)
+        public async Task<IActionResult> Update(string id,[FromBody] UserModel updatedUser)
         {
             var user = await _userServices.GetUser(id);
 
