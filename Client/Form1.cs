@@ -68,5 +68,30 @@ namespace Client
             var campaign= new CampaignModel() { Title=txt_Title.Text,Hashtag=txt_Hashtag.Text,Url=txt_Url.Text,CreatedBy=txt_OwnerId.Text};
             await _campaignServices.CreateCampaign(campaign);
         }
+
+        private void txt_email_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_Pass_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_Last_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

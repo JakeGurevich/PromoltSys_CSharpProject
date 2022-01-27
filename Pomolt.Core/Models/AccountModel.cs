@@ -11,13 +11,12 @@ namespace Promolt.Core.Models
     public class AccountModel
     {
 
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+       
         public string? Id { get; set; }
         public decimal Cash { get; set; }
         public decimal TotalCashSpend { get; set; }
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Owner { get; set; } = null!;
+       
+        public string? Owner { get; set; }
         public string SocialUserName { get; set; } = null!;
     }
 }

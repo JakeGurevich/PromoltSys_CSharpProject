@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+
 using Promolt.Core.Interfaces;
 using Promolt.Core.Models;
 using System;
@@ -16,11 +17,15 @@ namespace Promolt.Core.DB_Accessors
         private const string COLLECTION_NAME = "users";
         private readonly IMongoCollection<UserModel> usersCollection;
 
-
+      
         public MongoDBUsersAccessor(IMongoClient mongoClient)
         {
             IMongoDatabase database = mongoClient.GetDatabase(DB_NAME);
+
+
+            
             usersCollection = database.GetCollection<UserModel>(COLLECTION_NAME);
+            
         }
 
 

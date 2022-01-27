@@ -79,6 +79,7 @@
             this.txt_Last.Name = "txt_Last";
             this.txt_Last.Size = new System.Drawing.Size(150, 31);
             this.txt_Last.TabIndex = 2;
+            this.txt_Last.TextChanged += new System.EventHandler(this.txt_Last_TextChanged);
             // 
             // btn_GetData
             // 
@@ -128,6 +129,7 @@
             this.label3.Size = new System.Drawing.Size(87, 25);
             this.label3.TabIndex = 7;
             this.label3.Text = "Password";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // txt_Pass
             // 
@@ -135,6 +137,7 @@
             this.txt_Pass.Name = "txt_Pass";
             this.txt_Pass.Size = new System.Drawing.Size(150, 31);
             this.txt_Pass.TabIndex = 8;
+            this.txt_Pass.TextChanged += new System.EventHandler(this.txt_Pass_TextChanged);
             // 
             // txt_email
             // 
@@ -142,6 +145,7 @@
             this.txt_email.Name = "txt_email";
             this.txt_email.Size = new System.Drawing.Size(150, 31);
             this.txt_email.TabIndex = 9;
+            this.txt_email.TextChanged += new System.EventHandler(this.txt_email_TextChanged);
             // 
             // label4
             // 
@@ -151,6 +155,7 @@
             this.label4.Size = new System.Drawing.Size(54, 25);
             this.label4.TabIndex = 10;
             this.label4.Text = "Email";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // txt_Url
             // 
