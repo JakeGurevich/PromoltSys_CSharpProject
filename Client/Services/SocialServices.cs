@@ -17,8 +17,7 @@ namespace Client.Services
 
         public SocialServices()
         {
-            client = new TwitterClient("0tO7j8zau21kQ0ADSF4O5ZZ28", "UNufXg6q7TjMoase5GjekgqRIP5IQ8IAld6tsZXRkp2vpWCGA6",
-                "1485894302177927168-etJeYpqWsMDKsyJV02xXiBcgT9kfnc", "f7qnhJFZ4I2PU2WOsFaom83RTxoL6vQxQiXhlMkcRG7C0");
+            client = new TwitterClient();
           
 
             
