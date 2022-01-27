@@ -36,5 +36,11 @@ namespace Promolt.Core.Services
             var donations = _donationsAccessor.GetDonations();
             return donations;
         }
+        public async Task UpdateDonation(string id, DonationModel updatedDonation)
+        {
+           
+                await _donationsAccessor.UpdateDonation(id, updatedDonation);
+            
+        }
     }
 }

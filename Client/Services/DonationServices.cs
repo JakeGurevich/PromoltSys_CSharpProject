@@ -37,5 +37,9 @@ namespace Client.Services
             return donations;
         }
 
+        public async Task UpdateDonation(string id, DonationModel updatedDonation)
+        {
+            await _donationClient.UpdateDonation(id, updatedDonation);    
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace Promolt.Core.Models
         public string? Id { get; set; }
         public List<ItemModel> Cart { get; set; } = null!;
         
-        public decimal? TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string CreatedBy { get; set; } = null!;

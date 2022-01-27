@@ -27,6 +27,11 @@ namespace Promolt.Core
            var user = await _usersAccessor.GetUser(id);
             return user;
         }
+        public async Task<UserModel> GetUserByEmail(LoginModel login)
+        {
+            var user = await _usersAccessor.GetUserByEmail(login);
+            return user;
+        }
 
         public Task<List<UserModel>> GetUsers()
         {

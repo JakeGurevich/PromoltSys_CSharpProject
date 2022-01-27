@@ -39,5 +39,9 @@ namespace Promolt.Core.DB_Accessors
             await donationsCollection.InsertOneAsync(donation);
 
         }
+        public async Task UpdateDonation(string id, DonationModel updatedDonation)
+        {
+            await donationsCollection.ReplaceOneAsync(x => x.Id == id, updatedDonation);
+        }
     }
 }
