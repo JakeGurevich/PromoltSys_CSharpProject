@@ -1,12 +1,19 @@
-using Client.Interfaces;
+﻿using Client.Interfaces;
 using Client.Models;
-using Client.Services;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using Tweetinvi.Models;
 
-namespace PromoterClient
+namespace Client.Forms
 {
-    public partial class Form1 : Form
+    public partial class PromoterProfile : Form
     {
         private readonly ILoginServices _loginServices;
         private readonly ISocialServices _socialServices;
@@ -15,28 +22,28 @@ namespace PromoterClient
         private readonly IOrderServices _orderServices;
         private readonly IUsersServices _usersServices;
         private UserModel _user;
-        private  List<ITweet> tweets=new List<ITweet>();
-        private List<CampaignModel> campaigns=new List<CampaignModel>();
-        public Form1(ILoginServices loginServices,ISocialServices socialServices, 
+        private List<ITweet> tweets = new List<ITweet>();
+        private List<CampaignModel> campaigns = new List<CampaignModel>();
+        public PromoterProfile(ILoginServices loginServices, ISocialServices socialServices,
             ICampaignServices campaignServices, IDonationServices donationServices,
-            IOrderServices orderServices, IUsersServices usersServices)
+            IOrderServices orderServices, IUsersServices usersServices,UserModel user)
         {
             InitializeComponent();
             _loginServices = loginServices;
             _socialServices = socialServices;
-            _campaignServices= campaignServices;
-            _donationServices= donationServices;
-            _orderServices= orderServices;
-            _usersServices= usersServices;
+            _campaignServices = campaignServices;
+            _donationServices = donationServices;
+            _orderServices = orderServices;
+            _usersServices = usersServices;
+            _user = user;
+            label_Name.Text=_user.FirstName+" "+_user.LastName;
         }
 
         private async void btn_Login_Click(object sender, EventArgs e)
         {
             try
             {
-                var login = new LoginModel { Password = txt_Pass.Text, Email = txt_Email.Text };
-                 _user = await _loginServices.Login(login);
-                txt_UserId.Text = _user.Id;
+               
                 if (_user.Account != null)
                 {
                     var Tweets = await _socialServices.GetTweets(_user.Account.SocialUserName);
@@ -44,15 +51,15 @@ namespace PromoterClient
                     dg_Tweets.DataSource = Tweets;
                 }
                 campaigns = await _campaignServices.GetCampaigns();
-              
+
                 _user.Account.Cash = _socialServices.InitCash(InitHashtagsList());
             }
             catch (Exception ex)
             {
 
-              MessageBox.Show(ex.Message);  
+                MessageBox.Show(ex.Message);
             }
-          
+
         }
 
         private async void btn_ConnectToTwiter_Click(object sender, EventArgs e)
@@ -71,8 +78,8 @@ namespace PromoterClient
 
                 MessageBox.Show(ex.Message);
             }
-           
-            
+
+
         }
 
         private void txt_twiterUser_TextChanged(object sender, EventArgs e)
@@ -80,14 +87,14 @@ namespace PromoterClient
 
         }
 
-        private  void btn_Post_Click(object sender, EventArgs e)
+        private void btn_Post_Click(object sender, EventArgs e)
         {
             _socialServices.PostTweet(txt_Tweet.Text);
         }
 
         private async void btn_GetCampaigns_Click(object sender, EventArgs e)
         {
-            campaigns=await _campaignServices.GetCampaigns();
+            campaigns = await _campaignServices.GetCampaigns();
             dg_Campaigns.DataSource = campaigns;
         }
         private List<string> InitHashtagsList()
@@ -97,10 +104,11 @@ namespace PromoterClient
             {
                 if (campaign.Hashtag.StartsWith("#"))
                 {
-                    campaign.Hashtag=campaign.Hashtag.Substring(1);
+                    campaign.Hashtag = campaign.Hashtag.Substring(1);
                 }
-                if(!allCampaignHashtags.Contains(campaign.Hashtag)){
-                       allCampaignHashtags.Add(campaign.Hashtag);
+                if (!allCampaignHashtags.Contains(campaign.Hashtag))
+                {
+                    allCampaignHashtags.Add(campaign.Hashtag);
                 }
             }
             return allCampaignHashtags;
@@ -108,14 +116,14 @@ namespace PromoterClient
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _user.Account.Cash = _socialServices.InitCash(InitHashtagsList())-_user.Account.TotalCashSpend;
-            txt_Balance.Text = _user.Account.Cash.ToString();
+            _user.Account.Cash = _socialServices.InitCash(InitHashtagsList()) - _user.Account.TotalCashSpend;
+           label_Balance.Text = _user.Account.Cash.ToString();
         }
 
         private async void btn_GetDonations_Click(object sender, EventArgs e)
         {
-            var products=await _donationServices.GetDonations();
-            dg_Products.DataSource= products;
+            var products = await _donationServices.GetDonations();
+            dg_Products.DataSource = products;
         }
 
         private async void btn_Buy_Click(object sender, EventArgs e)
@@ -127,8 +135,8 @@ namespace PromoterClient
 
                 if (_user.Account.Cash >= product.Price * 1)
                 {
-                   var order= await _socialServices.MakeOrder(_user, 1, product, _orderServices);
-                 
+                    var order = await _socialServices.MakeOrder(_user, 1, product, _orderServices);
+
                     _user.Account.TotalCashSpend += order.TotalPrice;
                     await _usersServices.UpdateUser(_user.Id, _user);
                     product.Qty -= 1;
@@ -145,40 +153,15 @@ namespace PromoterClient
 
                 MessageBox.Show(ex.Message);
             }
-           
+
         }
 
-        private void txt_ProductId_TextChanged(object sender, EventArgs e)
+        private void PromoterProfile_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txt_Balance_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dg_Products_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void dg_Campaigns_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void dg_Tweets_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void btn_GetCampaigns_Click_1(object sender, EventArgs e)
         {
 
         }

@@ -13,4 +13,8 @@
     <PackageReference Include="TweetinviAPI" Version="5.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Pomolt.Core\Promolt.Core.csproj" />
+  </ItemGroup>
+
 </Project>

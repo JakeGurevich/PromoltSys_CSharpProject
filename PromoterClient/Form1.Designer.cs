@@ -139,6 +139,7 @@
             this.dg_Tweets.RowTemplate.Height = 33;
             this.dg_Tweets.Size = new System.Drawing.Size(406, 310);
             this.dg_Tweets.TabIndex = 9;
+            this.dg_Tweets.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_Tweets_CellContentClick);
             // 
             // btn_Post
             // 
@@ -159,6 +160,7 @@
             this.dg_Campaigns.RowTemplate.Height = 33;
             this.dg_Campaigns.Size = new System.Drawing.Size(275, 310);
             this.dg_Campaigns.TabIndex = 11;
+            this.dg_Campaigns.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_Campaigns_CellContentClick);
             // 
             // btn_GetCampaigns
             // 
@@ -188,6 +190,7 @@
             this.label4.Size = new System.Drawing.Size(71, 25);
             this.label4.TabIndex = 14;
             this.label4.Text = "Balance";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // txt_Balance
             // 
@@ -195,6 +198,7 @@
             this.txt_Balance.Name = "txt_Balance";
             this.txt_Balance.Size = new System.Drawing.Size(150, 31);
             this.txt_Balance.TabIndex = 15;
+            this.txt_Balance.TextChanged += new System.EventHandler(this.txt_Balance_TextChanged);
             // 
             // dg_Products
             // 
@@ -205,6 +209,7 @@
             this.dg_Products.RowTemplate.Height = 33;
             this.dg_Products.Size = new System.Drawing.Size(335, 298);
             this.dg_Products.TabIndex = 16;
+            this.dg_Products.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_Products_CellContentClick);
             // 
             // btn_GetDonations
             // 
@@ -232,6 +237,7 @@
             this.txt_ProductId.Name = "txt_ProductId";
             this.txt_ProductId.Size = new System.Drawing.Size(70, 31);
             this.txt_ProductId.TabIndex = 19;
+            this.txt_ProductId.TextChanged += new System.EventHandler(this.txt_ProductId_TextChanged);
             // 
             // label5
             // 
@@ -241,6 +247,7 @@
             this.label5.Size = new System.Drawing.Size(28, 25);
             this.label5.TabIndex = 20;
             this.label5.Text = "Id";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // Form1
             // 

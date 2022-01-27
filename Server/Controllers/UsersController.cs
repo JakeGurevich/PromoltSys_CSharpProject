@@ -42,14 +42,14 @@ namespace Server.Controllers
 
         public async Task<IActionResult> CreateUser(UserModel newUser)
         {
-            if (newUser.Role == "promoter")
-            {
-                var account=new AccountModel() { SocialUserName=newUser.Account.SocialUserName};
-                newUser.Account=account;
-            }
+            //if (newUser.Role == "promoter")
+            //{
+            //    var account=new AccountModel() { SocialUserName=newUser.Account.SocialUserName};
+            //    newUser.Account=account;
+            //}
             await _userServices.CreateUser(newUser);
 
-            return CreatedAtAction(nameof(Get),   newUser);
+            return CreatedAtAction(nameof(Get),new { id = newUser.Id },   newUser);
 
 
         }
