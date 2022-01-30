@@ -12,12 +12,13 @@ namespace Client.Services
 {
     public class SocialServices:ISocialServices
     {
-        private readonly TwitterClient client;
+        private TwitterClient client;
         private IDictionary<string, int> hashtags=null!;
 
         public SocialServices()
         {
-            client = new TwitterClient();
+            client = new TwitterClient("YFQIbPwykkTOEuedwRoKXdVdi", "pSxhD3sTCK9hk8dAeKZW6OZThUwaN1jxzwUwTEIw1m9jkeyypt",
+                "1485894302177927168-nPExNXWyfcbS2kovfKMapBktYFN8ZH", "IbeBh1LWKEgl1YvCUO9sk4BjiUC9CALwbO89sH4zYu7NF");
           
 
             
@@ -40,11 +41,38 @@ namespace Client.Services
             }
            
         }
+        public void ConnectToTwitter()
+        {
+            client = new TwitterClient("secret key", "one more secret key",
+             "secret token", "super secret token");
+
+        }
+
+        public async void UpdateHashtasFromTweets(string userName)
+        {
+
+            try
+            {
+                ConnectToTwitter();
+              // var user = await client.Users.GetAuthenticatedUserAsync();
+               
+                var userTimeline = await client.Timelines.GetUserTimelineAsync(userName);
+              
+                CountHashtags(userTimeline);
+              
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         public async void PostTweet(string msg)
         {
             var publishedTweet = await client.Tweets.PublishTweetAsync(msg);
         }
+       
         public IDictionary<string, int> CountHashtags(IEnumerable<ITweet> tweets)
         {
             hashtags=new Dictionary<string,int>();
@@ -72,6 +100,7 @@ namespace Client.Services
 
         public int InitCash(List<string> hashtagsList)
         {
+           
             var cash = 0;
             if(hashtagsList != null&& hashtags != null)
             {
@@ -79,7 +108,7 @@ namespace Client.Services
                 {
                     if (hashtagsList.Contains(tag.Key))
                     {
-                        cash++;
+                        cash+=tag.Value;
                     }
                 }
             }

@@ -35,6 +35,12 @@ namespace Promolt.Core.DB_Accessors
         {
             return await ordersCollection.Find(order => true).ToListAsync();
         }
+
+        public async Task<List<OrderModel>> GetOrders(string id)
+        {
+            return await ordersCollection.Find(order => order.DonatedBy==id).ToListAsync();
+        }
+       
         public async Task CreateOrder(OrderModel order)
         {
             await ordersCollection.InsertOneAsync(order);

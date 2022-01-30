@@ -19,5 +19,7 @@ namespace Client.Interfaces
         Task<OrderModel> GetOrder(string id);
         [Get("/api/orders")]
         Task<List<OrderModel>> GetOrders();
+        [Get("/api/orders/filter/{id}")]
+        Task<List<OrderModel>> GetOrders(string id);
     }
 }

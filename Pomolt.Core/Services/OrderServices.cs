@@ -33,5 +33,11 @@ namespace Promolt.Core.Services
             var orders = await _ordersAccessor.GetOrders();
             return orders;
         }
+
+        public async Task<List<OrderModel>> GetOrders(string id)
+        {
+            var orders = await _ordersAccessor.GetOrders(id);
+            return orders;
+        }
     }
 }

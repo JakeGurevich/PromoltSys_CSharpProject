@@ -26,6 +26,14 @@ namespace Server.Controllers
             return donations;
         }
 
+        // GET: api/<DonationsController>
+        [HttpGet("filter/{id}")]
+        public async Task<ActionResult<List<DonationModel>>> GetDonations(string id)
+        {
+            var donations = await _donationServices.GetDonations(id);
+            return donations;
+        }
+
         // GET api/<DonationsController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DonationModel>> Get(string id)

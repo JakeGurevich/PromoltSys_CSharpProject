@@ -29,10 +29,30 @@ namespace Client.Services
             return order;
         }
 
-        public Task<List<OrderModel>> GetOrders()
+        public async Task<List<OrderModel>> GetOrders()
         {
-            var orders = _orderClient.GetOrders();
+            var orders =await _orderClient.GetOrders();
             return orders;
+        }
+
+        public async Task<List<OrderModel>> GetOrders(string id)
+        {
+            var orders = await _orderClient.GetOrders(id);
+            return orders;
+        }
+       
+        public async Task<OrderModel> MakeOrder(UserModel user, int qty, DonationModel donation)
+        {
+            var item = new ItemModel { Title = donation.ProductName, Qty = qty, 
+                Price = (decimal)donation.Price };
+            var cart = new List<ItemModel>();
+            cart.Add(item);
+            var order = new OrderModel { Cart = cart, TotalPrice = item.Price * item.Qty, 
+                CreatedBy = user.Id,DonatedBy=donation.DonatedBy, CreatedAt = DateTime.Now };
+            await CreateOrder(order);
+            return order;
+
+
         }
     }
 }

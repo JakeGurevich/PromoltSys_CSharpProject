@@ -13,5 +13,6 @@ namespace Promolt.Core.Interfaces
         Task CreateOrder(OrderModel order);
         Task<OrderModel> GetOrder(string id);
         Task<List<OrderModel>> GetOrders();
+        Task<List<OrderModel>> GetOrders(string id);
     }
 }

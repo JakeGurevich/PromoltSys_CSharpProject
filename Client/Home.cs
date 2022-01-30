@@ -18,7 +18,10 @@ namespace Client
     public partial class Home : Form
     {
        private Form UserForm;
-       private Form PromoterForm;
+        private Form PromoterForm;
+        private Form AdminProfileForm;
+        private Form PromoterProfileForm;
+        private Form SponsorProfileForm;
         private Form UserProfileForm;
        private ILoginServices _loginServices;
         private UserModel _user;
@@ -33,16 +36,29 @@ namespace Client
         {
             var loginObj=new LoginModel() { Email = txt_email.Text, Password = txt_Pass.Text };
              _user = await _loginServices.Login(loginObj);
-            if (_user.Role == "user")
+            if (_user.Role == "admin")
             {
-                UserProfileForm = new UserProfile(new CampaignServices(), _user);
-                UserProfileForm.Show();
-            }else if(_user.Role == "promoter")
-            {
-                PromoterForm = new PromoterProfile(new LoginServices(), new SocialServices(),
+                AdminProfileForm = new AdminProfile(new LoginServices(), new SocialServices(),
             new CampaignServices(), new DonationServices(),
            new OrderServices(), new UsersServices(), _user);
-                PromoterForm.Show();
+                AdminProfileForm.Show();
+            }else if(_user.Role == "promoter")
+            {
+                PromoterProfileForm = new PromoterProfile(new LoginServices(), new SocialServices(),
+            new CampaignServices(), new DonationServices(),
+           new OrderServices(), new UsersServices(), _user);
+                PromoterProfileForm.Show();
+            }else if(_user.Role=="sponsor")
+            {
+                SponsorProfileForm = new SponsorProfile(
+        new DonationServices(),
+      new OrderServices() , _user);
+                SponsorProfileForm.Show();
+            }else
+            {
+
+                UserProfileForm = new UserProfile(new CampaignServices(), _user);
+                UserProfileForm.Show();
             }
           
            // this.Hide();

@@ -16,5 +16,7 @@ namespace Client.Interfaces
         IDictionary<string, int> CountHashtags(IEnumerable<ITweet> tweets);
         int InitCash(List<string> hashtagsList);
         Task<OrderModel> MakeOrder(UserModel user, int qty, DonationModel donation, IOrderServices os);
+        void UpdateHashtasFromTweets(string userName);
+        void ConnectToTwitter();
     }
 }
