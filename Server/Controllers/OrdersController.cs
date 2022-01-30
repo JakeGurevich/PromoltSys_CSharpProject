@@ -26,6 +26,13 @@ namespace Server.Controllers
             return orders;
         }
 
+        [HttpGet("filter/{id}")]
+        public async Task<ActionResult<List<OrderModel>>> GetOrders(string id)
+        {
+            var orders = await _orderServices.GetOrders(id);
+            return orders;
+        }
+
         // GET api/<OrdersController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderModel>> Get(string id)

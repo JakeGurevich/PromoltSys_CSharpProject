@@ -31,8 +31,6 @@
             this.btn_GetCampaigns = new System.Windows.Forms.Button();
             this.dg_Campains = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txt_OwnerId = new System.Windows.Forms.TextBox();
             this.txt_Url = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -74,22 +72,6 @@
             this.button1.Text = "Create Camp\r\n";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(55, 250);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(64, 25);
-            this.label8.TabIndex = 29;
-            this.label8.Text = "Owner";
-            // 
-            // txt_OwnerId
-            // 
-            this.txt_OwnerId.Location = new System.Drawing.Point(55, 278);
-            this.txt_OwnerId.Name = "txt_OwnerId";
-            this.txt_OwnerId.Size = new System.Drawing.Size(150, 31);
-            this.txt_OwnerId.TabIndex = 28;
             // 
             // txt_Url
             // 
@@ -157,8 +139,6 @@
             this.Controls.Add(this.btn_GetCampaigns);
             this.Controls.Add(this.dg_Campains);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.txt_OwnerId);
             this.Controls.Add(this.txt_Url);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);

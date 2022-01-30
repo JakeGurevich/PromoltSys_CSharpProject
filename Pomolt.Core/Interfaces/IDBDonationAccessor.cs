@@ -12,6 +12,7 @@ namespace Promolt.Core.Interfaces
         Task CreateDonation(DonationModel campaign);
         Task<DonationModel> GetDonation(string id);
         Task<List<DonationModel>> GetDonations();
+        Task<List<DonationModel>> GetDonations(string id);
         Task UpdateDonation(string id, DonationModel updatedDonation);
     }
 }

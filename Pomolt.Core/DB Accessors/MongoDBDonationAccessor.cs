@@ -34,6 +34,13 @@ namespace Promolt.Core.DB_Accessors
         {
             return await donationsCollection.Find(donation => true).ToListAsync();
         }
+
+
+        public async Task<List<DonationModel>> GetDonations(string id)
+        {
+            return await donationsCollection.Find(donation => donation.DonatedBy==id).ToListAsync();
+        }
+      
         public async Task CreateDonation(DonationModel donation)
         {
             await donationsCollection.InsertOneAsync(donation);

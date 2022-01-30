@@ -20,6 +20,7 @@ namespace Promolt.Core.Models
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string CreatedBy { get; set; } = null!;
+        public string DonatedBy { get; set; } = null!; 
         public DateTime CreatedAt { get; set; }
     }
 }

@@ -37,6 +37,12 @@ namespace Client.Services
             return donations;
         }
 
+        public Task<List<DonationModel>> GetDonations(string id)
+        {
+            var donations = _donationClient.GetDonations(id);
+            return donations;
+        }
+
         public async Task UpdateDonation(string id, DonationModel updatedDonation)
         {
             await _donationClient.UpdateDonation(id, updatedDonation);    

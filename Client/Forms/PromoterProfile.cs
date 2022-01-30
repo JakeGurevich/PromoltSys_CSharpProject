@@ -37,6 +37,7 @@ namespace Client.Forms
             _usersServices = usersServices;
             _user = user;
             label_Name.Text=_user.FirstName+" "+_user.LastName;
+
         }
 
         private async void btn_Login_Click(object sender, EventArgs e)
@@ -52,7 +53,7 @@ namespace Client.Forms
                 }
                 campaigns = await _campaignServices.GetCampaigns();
 
-                _user.Account.Cash = _socialServices.InitCash(InitHashtagsList());
+                _user.Account!.Cash = _socialServices.InitCash(InitHashtagsList());
             }
             catch (Exception ex)
             {
@@ -62,8 +63,47 @@ namespace Client.Forms
 
         }
 
-        private async void btn_ConnectToTwiter_Click(object sender, EventArgs e)
+     
+
+       
+      
+
+       
+        private List<string> InitHashtagsList()
         {
+            List<string> allCampaignHashtags = new List<string>();
+            foreach (var campaign in campaigns)
+            {
+                //if (campaign.Hashtag.StartsWith("#"))
+                //{
+                //    campaign.Hashtag = campaign.Hashtag.Substring(1);
+                //}
+                if (!allCampaignHashtags.Contains(campaign.Hashtag))
+                {
+                    allCampaignHashtags.Add(campaign.Hashtag.Substring(1));
+                }
+            }
+            return allCampaignHashtags;
+        }
+
+       
+
+       
+
+       
+
+      
+
+        private async void btn_GetCampaigns_Click_1(object sender, EventArgs e)
+        {
+            campaigns = await _campaignServices.GetCampaigns();
+            dg_Campaigns.DataSource = campaigns;
+            dg_Campaigns.Columns["id"].Visible = false;
+        }
+
+        private async void btn_ConnectToTwiter_Click_1(object sender, EventArgs e)
+        {
+
             try
             {
                 if (_user != null)
@@ -71,6 +111,7 @@ namespace Client.Forms
                     var Tweets = await _socialServices.GetTweets(_user.Account.SocialUserName);
 
                     dg_Tweets.DataSource = Tweets;
+                    dg_Tweets.Columns["Client"].Visible = false;
                 }
             }
             catch (Exception ex)
@@ -78,64 +119,21 @@ namespace Client.Forms
 
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
-        private void txt_twiterUser_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_Post_Click(object sender, EventArgs e)
+        private void btn_Post_Click_1(object sender, EventArgs e)
         {
             _socialServices.PostTweet(txt_Tweet.Text);
         }
 
-        private async void btn_GetCampaigns_Click(object sender, EventArgs e)
+        private async void btn_Buy_Click_1(object sender, EventArgs e)
         {
-            campaigns = await _campaignServices.GetCampaigns();
-            dg_Campaigns.DataSource = campaigns;
-        }
-        private List<string> InitHashtagsList()
-        {
-            List<string> allCampaignHashtags = new List<string>();
-            foreach (var campaign in campaigns)
-            {
-                if (campaign.Hashtag.StartsWith("#"))
-                {
-                    campaign.Hashtag = campaign.Hashtag.Substring(1);
-                }
-                if (!allCampaignHashtags.Contains(campaign.Hashtag))
-                {
-                    allCampaignHashtags.Add(campaign.Hashtag);
-                }
-            }
-            return allCampaignHashtags;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            _user.Account.Cash = _socialServices.InitCash(InitHashtagsList()) - _user.Account.TotalCashSpend;
-           label_Balance.Text = _user.Account.Cash.ToString();
-        }
-
-        private async void btn_GetDonations_Click(object sender, EventArgs e)
-        {
-            var products = await _donationServices.GetDonations();
-            dg_Products.DataSource = products;
-        }
-
-        private async void btn_Buy_Click(object sender, EventArgs e)
-        {
-
             try
             {
-                var product = await _donationServices.GetDonation(txt_ProductId.Text);
-
-                if (_user.Account.Cash >= product.Price * 1)
+                var product = await _donationServices.GetDonation(txt_PoductId.Text);
+                if (_user.Account.Cash >= product.Price )
                 {
-                    var order = await _socialServices.MakeOrder(_user, 1, product, _orderServices);
+                    var order = await _orderServices.MakeOrder(_user, 1, product);
 
                     _user.Account.TotalCashSpend += order.TotalPrice;
                     await _usersServices.UpdateUser(_user.Id, _user);
@@ -153,17 +151,84 @@ namespace Client.Forms
 
                 MessageBox.Show(ex.Message);
             }
-
         }
 
-        private void PromoterProfile_Load(object sender, EventArgs e)
+        private void btn_GetBalance_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _socialServices.UpdateHashtasFromTweets(_user?.Account?.SocialUserName!);
+                _user.Account.Cash = _socialServices.InitCash(InitHashtagsList()) - _user.Account.TotalCashSpend;
+                label_Balance.Text = _user.Account.Cash.ToString();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+           
+        }
+
+        private async void btn_GetDonations_Click_1(object sender, EventArgs e)
+        {
+            var products = await _donationServices.GetDonations();
+            dg_Products.DataSource = products;
+            dg_Products.Columns["id"].Visible = false;
+        }
+
+        private void dg_Products_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var selectedProduct = dg_Products.SelectedRows[0].DataBoundItem as DonationModel;
+            txt_ProductName.Text = selectedProduct!.ProductName;
+            txt_Price.Text = selectedProduct!.Price.ToString();
+            txt_PoductId.Text = selectedProduct.Id;
+        }
+
+        private void txt_Tweet_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void btn_GetCampaigns_Click_1(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dg_Campaigns_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var selectedCampaign = dg_Campaigns.SelectedRows[0].DataBoundItem as CampaignModel;
+            txt_CampaignName.Text = selectedCampaign!.Title;
+            txt_Tweet.Text = selectedCampaign.Hashtag;
+
+        }
+
+        private async void PromoterProfile_Load(object sender, EventArgs e)
+        {
+            
+            try
+            {
+                campaigns = await _campaignServices.GetCampaigns();
+                if (_user != null)
+                {
+                    var Tweets = await _socialServices.GetTweets(_user.Account.SocialUserName);
+
+                    dg_Tweets.DataSource = Tweets;
+                    dg_Tweets.Columns["Client"].Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+    
+
+        private void btn_ConnectToTwitter_Click(object sender, EventArgs e)
+        {
+            _socialServices.ConnectToTwitter();
         }
     }
 }

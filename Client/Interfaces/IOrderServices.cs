@@ -13,6 +13,8 @@ namespace Client.Interfaces
         Task CreateOrder(OrderModel order);
         Task<OrderModel> GetOrder(string id);
         Task<List<OrderModel>> GetOrders();
+        Task<List<OrderModel>> GetOrders(string id);
+        Task<OrderModel> MakeOrder(UserModel user, int qty, DonationModel donation);
 
 
     }
