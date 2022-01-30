@@ -13,15 +13,18 @@ namespace Server.Controllers
 
 
         IDonationServices _donationServices;
-        public DonationsController(IDonationServices DonationServices)
+        ILogger<DonationsController> _logger;
+        public DonationsController(IDonationServices DonationServices,ILogger<DonationsController> logger)
         {
             _donationServices = DonationServices;
+            _logger = logger;
         }
 
         // GET: api/<DonationsController>
         [HttpGet]
         public async Task<ActionResult<List<DonationModel>>>Get()
         {
+            _logger.LogInformation("Request working!");
             var donations = await _donationServices.GetDonations();
             return donations;
         }
