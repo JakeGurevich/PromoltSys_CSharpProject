@@ -13,12 +13,13 @@ namespace Client.Services
     public class SocialServices:ISocialServices
     {
         private TwitterClient client;
+
         private IDictionary<string, int> hashtags=null!;
 
         public SocialServices()
         {
-            client = new TwitterClient("YFQIbPwykkTOEuedwRoKXdVdi", "pSxhD3sTCK9hk8dAeKZW6OZThUwaN1jxzwUwTEIw1m9jkeyypt",
-                "1485894302177927168-nPExNXWyfcbS2kovfKMapBktYFN8ZH", "IbeBh1LWKEgl1YvCUO9sk4BjiUC9CALwbO89sH4zYu7NF");
+            client = new TwitterClient("8IHi9cghPmiLRqXcpHb7KBzVK", "mPmbvmvOSjwNyPHsTWUNIp6vrFxEbXx8YGsCrn0ApWSl13Usf5",
+                "1485894302177927168-bvOFb6OazsCQwDnIrKV8OtIPNz8WfK", "XOnwGpB7eB6P2BZ5YjvSxmkr7XDuqydo0SCrh8MYifgNX");
           
 
             
@@ -43,8 +44,8 @@ namespace Client.Services
         }
         public void ConnectToTwitter()
         {
-            client = new TwitterClient("secret key", "one more secret key",
-             "secret token", "super secret token");
+            client = new TwitterClient("8IHi9cghPmiLRqXcpHb7KBzVK", "mPmbvmvOSjwNyPHsTWUNIp6vrFxEbXx8YGsCrn0ApWSl13Usf5",
+                "1485894302177927168-bvOFb6OazsCQwDnIrKV8OtIPNz8WfK", "XOnwGpB7eB6P2BZ5YjvSxmkr7XDuqydo0SCrh8MYifgNX");
 
         }
 
@@ -54,8 +55,8 @@ namespace Client.Services
             try
             {
                 ConnectToTwitter();
-              // var user = await client.Users.GetAuthenticatedUserAsync();
-               
+                var user = await client.Users.GetAuthenticatedUserAsync();
+
                 var userTimeline = await client.Timelines.GetUserTimelineAsync(userName);
               
                 CountHashtags(userTimeline);
@@ -100,7 +101,7 @@ namespace Client.Services
 
         public int InitCash(List<string> hashtagsList)
         {
-           
+            var SumForOnePost = 5;
             var cash = 0;
             if(hashtagsList != null&& hashtags != null)
             {
@@ -108,7 +109,7 @@ namespace Client.Services
                 {
                     if (hashtagsList.Contains(tag.Key))
                     {
-                        cash+=tag.Value;
+                        cash+=tag.Value*SumForOnePost;
                     }
                 }
             }

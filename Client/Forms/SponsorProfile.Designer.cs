@@ -123,8 +123,10 @@
             this.dg_Orders.Name = "dg_Orders";
             this.dg_Orders.RowHeadersWidth = 62;
             this.dg_Orders.RowTemplate.Height = 33;
+            this.dg_Orders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dg_Orders.Size = new System.Drawing.Size(360, 279);
             this.dg_Orders.TabIndex = 47;
+            this.dg_Orders.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_Orders_CellContentClick);
             // 
             // txt_OrderProductName
             // 
@@ -148,6 +150,7 @@
             this.button1.TabIndex = 50;
             this.button1.Text = "Proceed Order";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 

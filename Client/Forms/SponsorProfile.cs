@@ -24,6 +24,7 @@ namespace Client.Forms
             _donationServices = donationServices;
             _orderServices = orderServices;
             _user = user;
+            label_Name.Text = _user.FirstName + " " + _user.LastName;
         }
 
         private void SponsorProfile_Load(object sender, EventArgs e)
@@ -86,6 +87,19 @@ namespace Client.Forms
         {
             dg_Campaigns.DataSource = await _donationServices.GetDonations(_user.Id);
             dg_Campaigns.Columns["id"].Visible = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Order Shipped.Thank you!");
+        }
+
+        private void dg_Orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            var selectedOrder = dg_Orders.SelectedRows[0].DataBoundItem as OrderModel;
+            txt_OrderProductName.Text = selectedOrder!.Cart[0].Title;
+            txt_OrderPrice.Text = selectedOrder!.TotalPrice.ToString();
         }
     }
 }
